@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MovieRentalsHateoasStaticService.Model
+namespace MovieRentals.Model
 {
     public class CollectionResourceWrapperDto<T> : ResourceBaseDto
         where T : ResourceBaseDto
