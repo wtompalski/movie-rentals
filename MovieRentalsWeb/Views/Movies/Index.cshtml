@@ -1,0 +1,46 @@
+﻿@model MovieRentalsWeb.Models.MoviesViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="starter-template">
+    <h1>Movies</h1>
+
+    <p class="lead">The list of movies</p>
+
+    <table width="500">
+        <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var movie in Model.Movies.Values)
+        {
+            <tr>
+                <td>
+                    @movie.Title
+                </td>
+                <td>
+                    @movie.Genre
+                </td>
+                <td>
+                    @foreach (var action in movie.Links)
+                    {
+                        if (action.Rel == "self")
+                        {
+                            <a asp-area="" asp-controller="Movies" asp-action="Movie" asp-route-url="@action.Href" class="link-button">view</a>
+                        }
+                        
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    @foreach (var action in Model.Movies.Links)
+    {
+        if (action.Rel == "self")
+        {
+            <a asp-area="" asp-controller="Movies" asp-action="Index" asp-route-url="@action.Href" class="link-button">refresh</a>
+        }
+    }
+</div>

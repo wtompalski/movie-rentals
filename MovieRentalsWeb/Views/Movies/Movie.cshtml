@@ -1,0 +1,76 @@
+﻿@model MovieRentalsWeb.Models.MovieViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="starter-template">
+    <h1>Movies</h1>
+
+    <p class="lead">The list of movies</p>
+
+    <table width="500">
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+
+        <tr>
+            <td>
+                Title
+            </td>
+            <td>
+                @Model.Movie.Title
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Year
+            </td>
+            <td>
+                @Model.Movie.Year
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Genre
+            </td>
+            <td>
+                @Model.Movie.Genre
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Description
+            </td>
+            <td>
+                @Model.Movie.Description
+            </td>
+        </tr>
+
+    </table>
+    @foreach (var action in @Model.Movie.Links)
+    {
+        if (action.Rel == "self")
+        {
+            <a asp-area="" asp-controller="Movies" asp-action="Movie" asp-route-url="@action.Href" class="link-button">refresh</a>
+        }
+
+        if (action.Rel == "rentMovie")
+        {
+            <a asp-area="" asp-controller="Movies" asp-action="RentMovie" asp-route-url="@action.Href" class="link-button">rent</a>
+        }
+
+        if (action.Rel == "returnMovie")
+        {
+            <a asp-area="" asp-controller="Movies" asp-action="RentMovie" asp-route-url="@action.Href" class="link-button">return</a>
+        }
+
+        if (action.Rel == "index")
+        {
+            <a asp-area="" asp-controller="Movies" asp-action="Index" class="link-button">back to list</a>
+        }
+    }
+</div>
