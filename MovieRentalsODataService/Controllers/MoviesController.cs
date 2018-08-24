@@ -7,79 +7,27 @@ using MovieRentals.Store;
 using MovieRentals.Entities;
 using MovieRentals.Model;
 using MovieRentals.Mappers;
-using MovieRentalsHateoasStaticService.Model;
+using Microsoft.AspNet.OData;
 
 namespace MovieRentals.Controllers
 {
-    [Route("api/movies")]
-    public class MoviesController : Controller
+
+    public class MoviesController : ODataController
     {
         private readonly MoviesRepository moviesRepository = new MoviesRepository();
 
-        [HttpGet(Name = "GetMovies")]
-        public CollectionResourceWrapperDto<MovieTraceDto> Get()
+ 
+        [EnableQuery]
+        public IEnumerable<MovieDto> Get()
         {
-            var movies = this.moviesRepository.GetMovies().Select(NotSoAutoMapper.MapToTrace).Select(AddLinks);
-
-            var wrapper = new CollectionResourceWrapperDto<MovieTraceDto>(movies);
-
-            return AddLinks(wrapper);
+            return this.moviesRepository.GetMovies().Select(NotSoAutoMapper.Map);
         }
 
-        [HttpGet("{id}", Name = "GetMovie")]
+        [EnableQuery]
         public MovieDto Get(int id)
         {
             var movie = this.moviesRepository.GetMovie(id);
-            var result = NotSoAutoMapper.Map(movie);
-
-            return AddLinks(result, movie.RentedBy);
-        }
-
-        private MovieDto AddLinks(MovieDto movie, string rentedBy)
-        {
-            movie.Links.Add(new LinkDto(this.Url.Link("GetMovie", new { id = movie.Id }), "self", "GET"));
-
-            if (rentedBy == null)
-            {
-                movie.Links.Add(new LinkDto(this.Url.Link("RentMovie", new { id = movie.Id }), "rentMovie", "POST"));
-            }
-            
-            if (rentedBy == this.User.Identity.Name)
-            {
-                movie.Links.Add(new LinkDto(this.Url.Link("ReturnMovie", new { id = movie.Id }), "returnMovie", "POST"));
-            }
-
-            movie.Links.Add(new LinkDto(this.Url.Link("GetMovies", new { id = movie.Id }), "index", "GET"));
-
-            return movie;
-        }
-
-        private MovieTraceDto AddLinks(MovieTraceDto movie)
-        {
-            movie.Links.Add(new LinkDto(this.Url.Link("GetMovie", new { id = movie.Id }), "self", "GET"));
-
-            return movie;
-        }
-
-        private CollectionResourceWrapperDto<MovieTraceDto> AddLinks(CollectionResourceWrapperDto<MovieTraceDto> movies)
-        {
-            movies.Links.Add(new LinkDto(this.Url.Link("GetMovies", new { }), "self", "GET"));
-            return movies;
-        }
-
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return NotSoAutoMapper.Map(movie);
         }
     }
 }

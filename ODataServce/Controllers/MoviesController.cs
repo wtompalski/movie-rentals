@@ -7,25 +7,27 @@ using MovieRentals.Store;
 using MovieRentals.Entities;
 using MovieRentals.Model;
 using MovieRentals.Mappers;
+using Microsoft.AspNet.OData;
 
-namespace MovieRentals.Controllers
+namespace BookStore.Controllers
 {
-    [Route("api/returnMovie")]
-    public class ReturnController : Controller
+
+    public class MoviesController : ODataController
     {
         private readonly MoviesRepository moviesRepository = new MoviesRepository();
 
-        public ReturnController()
+ 
+        [EnableQuery]
+        public IActionResult Get()
         {
+            return this.Ok(this.moviesRepository.GetMovies().Select(NotSoAutoMapper.Map));
         }
 
-        [HttpPost("{id}", Name = "ReturnMovie")]
-        public IActionResult Post(int id)
+        [EnableQuery]
+        public IActionResult Get(int id)
         {
             var movie = this.moviesRepository.GetMovie(id);
-            movie.RentedBy = null;
-
-            return AcceptedAtRoute("GetMovie", new { id = movie.Id });
+            return this.Ok(NotSoAutoMapper.Map(movie));
         }
     }
 }

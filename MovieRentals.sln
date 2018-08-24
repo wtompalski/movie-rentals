@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieRentalsHateoasStaticSe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieRentalsHateoasDynamicService", "MovieRentalsHateoasDynamicService\MovieRentalsHateoasDynamicService.csproj", "{3F7B6B23-BBA0-4DA8-B4BF-F9F12CF12DF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieRentalsODataService", "MovieRentalsODataService\MovieRentalsODataService.csproj", "{3839A684-6D43-4C50-8633-04541409B280}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieRentalsODataService", "MovieRentalsODataService\MovieRentalsODataService.csproj", "{3839A684-6D43-4C50-8633-04541409B280}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
