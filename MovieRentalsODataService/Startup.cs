@@ -24,6 +24,7 @@ namespace MovieRentalsODataService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MovieStoreContext>(opt => opt.UseInMemoryDatabase("MovieLists"));
             services.AddOData();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //services.AddDbContext<MovieStoreContext>(opt => opt.UseInMemoryDatabase("MovieLists"));
@@ -47,7 +48,7 @@ namespace MovieRentalsODataService
         private static IEdmModel GetEdmModel()
         {
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-            builder.EntitySet<MovieDto>("Movies");
+            builder.EntitySet<Movie>("Movies");
             return builder.GetEdmModel();
         }
     }

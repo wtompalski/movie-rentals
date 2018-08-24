@@ -10,19 +10,9 @@ namespace MovieRentals.Mappers
 {
     public static class NotSoAutoMapper
     {
-        public static MovieTraceDto MapToTrace(Movie movie)
+        public static Movie Map(MovieEntity movie)
         {
-            return new MovieTraceDto
-            {
-                Id = movie.Id,
-                Title = movie.Title,
-                Genre = movie.Genre
-            };
-        }
-
-        public static MovieDto Map(Movie movie)
-        {
-            return new MovieDto
+            return new Movie
             {
                 Id = movie.Id,
                 Title = movie.Title,

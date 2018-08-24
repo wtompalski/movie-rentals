@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieRentals.Entities;
+using MovieRentals.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,12 @@ namespace MovieRentalsODataService.Store
 
         public DbSet<Movie> Movies { get; set; }
 
+        public DbSet<Actor> Actors { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Movie>().HasMany(c => c.Ratings).WithOne();
+            modelBuilder.Entity<Movie>().HasMany(c => c.Cast).WithOne();
         }
     }
 }

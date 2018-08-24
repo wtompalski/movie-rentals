@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MovieRentals.Model
+namespace MovieRentals.Entities
 {
-    public class MovieDto
+    public class MovieEntity
     {
         public int Id { get; set; }
 
@@ -16,5 +16,7 @@ namespace MovieRentals.Model
         public string Description { get; set; }
 
         public string Genre { get; set; }
+
+        public string RentedBy { get; set; }
     }
 }

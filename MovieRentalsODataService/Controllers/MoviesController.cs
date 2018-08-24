@@ -8,26 +8,66 @@ using MovieRentals.Entities;
 using MovieRentals.Model;
 using MovieRentals.Mappers;
 using Microsoft.AspNet.OData;
+using MovieRentalsODataService.Store;
 
 namespace MovieRentals.Controllers
 {
 
     public class MoviesController : ODataController
     {
-        private readonly MoviesRepository moviesRepository = new MoviesRepository();
+        private readonly MovieStoreContext db;
 
- 
-        [EnableQuery]
-        public IEnumerable<MovieDto> Get()
+        public MoviesController(MovieStoreContext context)
         {
-            return this.moviesRepository.GetMovies().Select(NotSoAutoMapper.Map);
+            db = context;
+            if (context.Movies.Count() == 0)
+            {
+                foreach (var movie in MovieDataStore.Movies)
+                {
+                    context.Movies.Add(movie);
+
+                    foreach (var actor in movie.Cast)
+                    {
+                        context.Actors.Add(actor);
+                    }
+                    
+                }
+                context.SaveChanges();
+            }
         }
 
         [EnableQuery]
-        public MovieDto Get(int id)
+        public IActionResult Get()
         {
-            var movie = this.moviesRepository.GetMovie(id);
-            return NotSoAutoMapper.Map(movie);
+            return Ok(db.Movies);
+        }
+
+        [EnableQuery]
+        public IActionResult Get(int id)
+        {
+            return Ok(db.Movies.FirstOrDefault(m => m.Id == id));
+        }
+
+        [EnableQuery]
+        public IActionResult Post([FromBody]Movie movie)
+        {
+            db.Movies.Add(movie);
+            db.SaveChanges();
+            return Created(movie);
+        }
+
+        [EnableQuery]
+        public IActionResult Delete([FromBody]int key)
+        {
+            var m = db.Movies.FirstOrDefault(c => c.Id == key);
+            if (m == null)
+            {
+                return NotFound();
+            }
+
+            db.Movies.Remove(m);
+            db.SaveChanges();
+            return Ok();
         }
     }
 }
