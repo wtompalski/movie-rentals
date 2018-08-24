@@ -23,8 +23,8 @@ namespace MovieRentals.Model
         [Required]
         public string Genre { get; set; }
 
-        public ICollection<Actor> Cast { get; set; }
+        public ICollection<Actor> Cast { get; } = new List<Actor>();
 
-        public ICollection<Rating> Ratings { get; set; }
+        public Rating Rating { get; set; }
     }
 }

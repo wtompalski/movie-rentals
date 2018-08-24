@@ -21,8 +21,11 @@ namespace MovieRentalsODataService.Store
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Movie>().HasMany(c => c.Ratings).WithOne();
-            modelBuilder.Entity<Movie>().HasMany(c => c.Cast).WithOne();
+            modelBuilder.Entity<Movie>(e =>
+            {
+                e.HasMany(c => c.Cast).WithOne();
+                e.OwnsOne(e1 => e1.Rating);
+            });
         }
     }
 }

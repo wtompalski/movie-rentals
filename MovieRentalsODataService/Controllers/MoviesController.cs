@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using MovieRentals.Store;
-using MovieRentals.Entities;
 using MovieRentals.Model;
-using MovieRentals.Mappers;
 using Microsoft.AspNet.OData;
 using MovieRentalsODataService.Store;
+using Microsoft.EntityFrameworkCore;
 
 namespace MovieRentals.Controllers
 {
-
     public class MoviesController : ODataController
     {
         private readonly MovieStoreContext db;
@@ -39,7 +34,7 @@ namespace MovieRentals.Controllers
         [EnableQuery]
         public IActionResult Get()
         {
-            return Ok(db.Movies);
+            return Ok(db.Movies.Include(x => x.Cast));
         }
 
         [EnableQuery]
