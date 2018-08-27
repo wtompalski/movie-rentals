@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNet.OData.Builder;
-using Microsoft.AspNet.OData.Extensions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OData.Edm;
-using MovieRentals.Model;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using MovieRentalsODataService.Store;
 
-namespace MovieRentalsODataService
+namespace MovieRentalsEmptyODataService
 {
     public class Startup
     {
@@ -25,7 +28,6 @@ namespace MovieRentalsODataService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MovieStoreContext>(opt => opt.UseInMemoryDatabase("MovieLists"));
-            services.AddOData();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -36,19 +38,13 @@ namespace MovieRentalsODataService
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseMvc(b =>
+            else
             {
-                b.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
-                b.MapODataServiceRoute("odata", "odata", GetEdmModel());
-            });
-        }
+                app.UseHsts();
+            }
 
-        private static IEdmModel GetEdmModel()
-        {
-            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-            builder.EntitySet<Movie>("Movies");
-            return builder.GetEdmModel();
+            app.UseHttpsRedirection();
+            app.UseMvc();
         }
     }
 }
