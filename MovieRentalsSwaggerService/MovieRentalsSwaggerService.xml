@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MovieRentalsSwaggerService</name>
+    </assembly>
+    <members>
+        <member name="T:MovieRentals.Controllers.MoviesController">
+            <summary>
+            Movie controller for managing movies.
+            </summary>
+        </member>
+        <member name="M:MovieRentals.Controllers.MoviesController.Get">
+            <summary>
+            Gets all movies movies.
+            </summary>
+            <returns>List of all movies in database.</returns>
+            <remarks>
+            Movies contain all information regarding actors and ratings.
+            </remarks>
+        </member>
+        <member name="M:MovieRentals.Controllers.MoviesController.Get(System.Int32)">
+            <summary>
+            Get specific movie.
+            </summary>
+            <param name="id">Id of the movie to get.</param>
+            <returns>Specific movie from the database.</returns>
+            <remarks>Movie contains all information regarding actors and ratings.</remarks>
+            <response code="200">Returns requested movie.</response>
+            <response code="202">Returns information request is being processed yet.</response>
+            <response code="204">Movie with given id not found.</response>
+            <response code="401">Authorization failed.</response>
+            <response code="500">Database could not be reached.</response>
+        </member>
+        <member name="M:MovieRentals.Controllers.MoviesController.Post(MovieRentals.Model.Movie)">
+            <summary>
+            Creates new movie.
+            </summary>
+            <param name="movie">Movie to add to the database.</param>
+            <returns>Result of create action.</returns>
+            <response code="201">Returns the newly created movie</response>
+            <response code="400">Bad argument received</response>     
+        </member>
+        <member name="M:MovieRentals.Controllers.MoviesController.Delete(System.Int32)">
+            <summary>
+            Deletes movie from database.
+            </summary>
+            <param name="id">Id of the movie to delete.</param>
+            <returns>Result of delete action.</returns>
+        </member>
+        <member name="T:MovieRentals.Model.Actor">
+            <summary>
+            Representation of an actor in database.
+            </summary>
+        </member>
+        <member name="P:MovieRentals.Model.Actor.Id">
+            <summary>
+            Id of an actor.
+            </summary>
+        </member>
+        <member name="P:MovieRentals.Model.Actor.FirstName">
+            <summary>
+            First name.
+            </summary>
+        </member>
+        <member name="P:MovieRentals.Model.Actor.LastName">
+            <summary>
+            Last name.
+            </summary>
+        </member>
+        <member name="P:MovieRentals.Model.Actor.DateOfBirth">
+            <summary>
+            Date of birth.
+            </summary>
+        </member>
+        <member name="P:MovieRentals.Model.Actor.Gender">
+            <summary>
+            Gender of an actor.
+            </summary>
+        </member>
+        <member name="T:MovieRentals.Model.Gender">
+            <summary>
+            Enumerate available genders.
+            </summary>
+        </member>
+        <member name="F:MovieRentals.Model.Gender.Female">
+            <summary>
+            Represents female gender.
+            </summary>
+        </member>
+        <member name="F:MovieRentals.Model.Gender.Male">
+            <summary>
+            Represents male gender.
+            </summary>
+        </member>
+        <member name="F:MovieRentals.Model.Gender.Other">
+            <summary>
+            Represents other gender.
+            </summary>
+        </member>
+        <member name="T:MovieRentals.Model.Movie">
+            <summary>
+            Represents movie in the database.
+            </summary>
+        </member>
+        <member name="P:MovieRentals.Model.Movie.Id">
+            <summary>
+            Id of the movie.
+            </summary>
+        </member>
+        <member name="P:MovieRentals.Model.Movie.Title">
+            <summary>
+            Title of the movie.
+            </summary>
+        </member>
+        <member name="P:MovieRentals.Model.Movie.Year">
+            <summary>
+            Year of the movie.
+            </summary>
+        </member>
+        <member name="P:MovieRentals.Model.Movie.Description">
+            <summary>
+            Description of the movie.
+            </summary>
+        </member>
+        <member name="P:MovieRentals.Model.Movie.Genre">
+            <summary>
+            Genre of the movie.
+            </summary>
+        </member>
+        <member name="P:MovieRentals.Model.Movie.Cast">
+            <summary>
+            Cast of the movie.
+            </summary>
+        </member>
+        <member name="P:MovieRentals.Model.Movie.Rating">
+            <summary>
+            Ratings of the movie.
+            </summary>
+        </member>
+        <member name="T:MovieRentals.Model.Rating">
+            <summary>
+            Represents movie rating.
+            </summary>
+        </member>
+        <member name="P:MovieRentals.Model.Rating.Value">
+            <summary>
+            Rating value.
+            </summary>
+        </member>
+        <member name="P:MovieRentals.Model.Rating.Comment">
+            <summary>
+            Rating comment.
+            </summary>
+        </member>
+    </members>
+</doc>

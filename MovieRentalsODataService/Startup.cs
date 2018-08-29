@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OData.Edm;
 using MovieRentals.Model;
 using MovieRentalsODataService.Store;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace MovieRentalsODataService
 {
@@ -28,28 +27,6 @@ namespace MovieRentalsODataService
             services.AddDbContext<MovieStoreContext>(opt => opt.UseInMemoryDatabase("MovieLists"));
             services.AddOData();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info
-                {
-                    Version = "v1",
-                    Title = "ToDo API",
-                    Description = "A simple example ASP.NET Core Web API",
-                    TermsOfService = "None",
-                    Contact = new Contact
-                    {
-                        Name = "Shayne Boyer",
-                        Email = string.Empty,
-                        Url = "https://twitter.com/spboyer"
-                    },
-                    License = new License
-                    {
-                        Name = "Use under LICX",
-                        Url = "https://example.com/license"
-                    }
-                });
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,20 +37,11 @@ namespace MovieRentalsODataService
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger();
-
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
-
             app.UseMvc(b =>
             {
                 b.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
                 b.MapODataServiceRoute("odata", "odata", GetEdmModel());
             });
-
-
         }
 
         private static IEdmModel GetEdmModel()
