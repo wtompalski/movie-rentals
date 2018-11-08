@@ -33,7 +33,7 @@ namespace MovieRentals.Store
                 Year = 1972,
                 Genre = "Crime, Drama",
                 Description = "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-                Rating = new Rating { Value = 9, Comment = "Movie of all time" },
+                Rating = new Rating { Value = 8, Comment = "Movie of all time" },
                 Cast =
                 {
                     new Actor { Id = 3, FirstName = "Marlon", LastName = "Brando", Gender = Gender.Male, DateOfBirth = new DateTimeOffset(new DateTime(1924, 4, 3)) },
@@ -47,7 +47,7 @@ namespace MovieRentals.Store
                 Year = 2008,
                 Genre = "Action, Crime, Drama",
                 Description = "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham. The Dark Knight must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
-                Rating = new Rating { Value = 9, Comment = "Movie of all time" },
+                Rating = new Rating { Value = 8, Comment = "Movie of all time" },
                 Cast =
                 {
                     new Actor { Id = 5, FirstName = "Christian", LastName = "Bale", Gender = Gender.Male, DateOfBirth = new DateTimeOffset(new DateTime(1974, 1, 30)) },
@@ -61,7 +61,7 @@ namespace MovieRentals.Store
                 Year = 1957,
                 Genre = "Crime, Drama",
                 Description = "A jury holdout attempts to prevent a miscarriage of justice by forcing his colleagues to reconsider the evidence.",
-                Rating = new Rating { Value = 9, Comment = "Movie of all time" },
+                Rating = new Rating { Value = 7, Comment = "Movie of all time" },
                 Cast =
                 {
                     new Actor { Id = 7, FirstName = "Martin", LastName = "Balsam", Gender = Gender.Male, DateOfBirth = new DateTimeOffset(new DateTime(1919, 11, 4)) },
@@ -75,7 +75,7 @@ namespace MovieRentals.Store
                 Year = 1994,
                 Genre = "Crime, Drama",
                 Description = "The lives of two mob hitmen, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
-                Rating = new Rating { Value = 9, Comment = "Movie of all time" },
+                Rating = new Rating { Value = 7, Comment = "Movie of all time" },
                 Cast =
                 {
                     new Actor { Id = 9, FirstName = "John", LastName = "Travolta", Gender = Gender.Male, DateOfBirth = new DateTimeOffset(new DateTime(1954, 2, 18)) },

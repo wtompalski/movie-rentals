@@ -8,7 +8,7 @@ using MovieRentals.Model;
 
 namespace MovieRentals.Mappers
 {
-    public static class NotSoAutoMapper
+    public static class Mapper
     {
         public static MovieTraceDto MapToTrace(Movie movie)
         {

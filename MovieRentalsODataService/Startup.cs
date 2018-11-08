@@ -48,6 +48,7 @@ namespace MovieRentalsODataService
         {
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<Movie>("Movies");
+            builder.EntitySet<Actor>("Actors");
             return builder.GetEdmModel();
         }
     }

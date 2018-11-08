@@ -19,8 +19,10 @@ namespace MovieRentalsODataService.Logger
             Exception exception,
             Func<TState, Exception, string> formatter)
         {
-            Debug.WriteLine($"{DateTime.Now.ToString("o")} {logLevel} {eventId.Id} {this.categoryName}");
-            Debug.WriteLine(formatter(state, exception));
+            if (this.categoryName == "Microsoft.EntityFrameworkCore.Query" && formatter(state, exception).StartsWith("Compiling query model"))
+            {
+                Debug.WriteLine(formatter(state, exception));
+            }
         }
 
         public IDisposable BeginScope<TState>(TState state) => null;

@@ -32,15 +32,16 @@ namespace MovieRentals.Controllers
         }
 
         [EnableQuery]
-        public IActionResult Get()
+        public IQueryable<Movie> Get()
         {
-            return Ok(db.Movies.Include(x => x.Cast));
+            return db.Movies;
         }
 
         [EnableQuery]
-        public IActionResult Get(int id)
+        public SingleResult<Movie> Get([FromODataUri] int key)
         {
-            return Ok(db.Movies.FirstOrDefault(m => m.Id == id));
+            IQueryable<Movie> result = db.Movies.Where(p => p.Id == key);
+            return SingleResult.Create(result);
         }
 
         [EnableQuery]
@@ -64,5 +65,21 @@ namespace MovieRentals.Controllers
             db.SaveChanges();
             return Ok();
         }
+
+        // GET /Products(1)/Supplier
+        [EnableQuery]
+        public IQueryable<Actor> GetCast([FromODataUri] int key)
+        {
+            return db.Actors.Where(m => m.MovieId == key);
+        }
+
+        // GET /Products(1)/Supplier
+        [EnableQuery]
+        public SingleResult<Actor> GetCast([FromODataUri] int key, [FromODataUri] int relatedKey)
+        {
+            var result = db.Actors.Where(m => m.MovieId == key && m.Id == relatedKey);
+            return SingleResult.Create(result);
+        }
+
     }
 }

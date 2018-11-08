@@ -19,7 +19,7 @@ namespace MovieRentals.Controllers
         [HttpGet(Name = "GetMovies")]
         public CollectionResourceWrapperDto<MovieTraceDto> Get()
         {
-            var movies = this.moviesRepository.GetMovies().Select(NotSoAutoMapper.MapToTrace).Select(AddLinks);
+            var movies = this.moviesRepository.GetMovies().Select(Mapper.MapToTrace).Select(AddLinks);
 
             var wrapper = new CollectionResourceWrapperDto<MovieTraceDto>(movies);
 
@@ -30,7 +30,7 @@ namespace MovieRentals.Controllers
         public MovieDto Get(int id)
         {
             var movie = this.moviesRepository.GetMovie(id);
-            var result = NotSoAutoMapper.Map(movie);
+            var result = Mapper.Map(movie);
 
             return AddLinks(result, movie.RentedBy);
         }
@@ -49,7 +49,7 @@ namespace MovieRentals.Controllers
                 movie.Links.Add(new LinkDto(this.Url.Link("ReturnMovie", new { id = movie.Id }), "returnMovie", "POST"));
             }
 
-            movie.Links.Add(new LinkDto(this.Url.Link("GetMovies", new { id = movie.Id }), "index", "GET"));
+            movie.Links.Add(new LinkDto(this.Url.Link("GetMovies", new { }), "index", "GET"));
 
             return movie;
         }
